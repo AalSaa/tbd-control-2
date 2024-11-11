@@ -1,16 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Home from "../components/Home.vue";
-import Login from "../components/LoginUser.vue";
-import Register from "../components/RegisterUser.vue";
+import Login from "../views/LoginUser.vue";
+import Register from "../views/RegisterUser.vue";
 
 const routes = [
   {
     path: "/",
-    name: "Home",
-    component: Home,
-  },
-  {
-    path: "/login",
     name: "Login",
     component: Login,
   },
@@ -23,7 +17,7 @@ const routes = [
 
 const router = createRouter({
   history: createWebHistory(),
-  routes,
+  routes, // Aquí pasas el array routes directamente
   linkActiveClass: "active-link",
 });
 

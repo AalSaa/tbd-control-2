@@ -4,23 +4,25 @@
         <form @submit.prevent="registerUser">
             <div>
                 <label for="name">Nombre:</label>
-                <input type="text" id="name" v-model="userData.name" required />
+                <input type="text" id="name" v-model="userData.name" placeholder="Ingrese su nombre" required />
             </div>
             <div>
                 <label for="address">Dirección:</label>
-                <input type="text" id="address" v-model="userData.address" required />
+                <input type="text" id="address" v-model="userData.address" placeholder="Ingrese su dirección"
+                    required />
             </div>
             <div>
                 <label for="email">Email:</label>
-                <input type="email" id="email" v-model="userData.email" required />
+                <input type="email" id="email" v-model="userData.email" placeholder="Ingrese su email" required />
             </div>
             <div>
                 <label for="password">Contraseña:</label>
-                <input type="password" id="password" v-model="userData.password" required />
+                <input type="password" id="password" v-model="userData.password" placeholder="Ingrese su contraseña"
+                    required />
             </div>
             <div>
                 <label for="phone">Teléfono:</label>
-                <input type="tel" id="phone" v-model="userData.phone" required />
+                <input type="tel" id="phone" v-model="userData.phone" placeholder="Ingrese su teléfono" required />
             </div>
             <button type="submit">Registrar</button>
         </form>
