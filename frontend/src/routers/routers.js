@@ -30,7 +30,7 @@ const routes = [
 
 const router = createRouter({
   history: createWebHistory(),
-  routes,
+  routes, // Aquí pasas el array routes directamente
   linkActiveClass: "active-link",
 });
 
