@@ -15,7 +15,7 @@ CREATE TABLE task (
     id SERIAL PRIMARY KEY,
     id_user INT NOT NULL,
     title VARCHAR(255) NOT NULL,
-    descrition TEXT,
+    description TEXT,
     due_date DATE NOT NULL,
     status BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (id_user) REFERENCES usuario(id_user) ON DELETE CASCADE
