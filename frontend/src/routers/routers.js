@@ -1,16 +1,13 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Home from "../components/Home.vue";
-import Login from "../components/LoginUser.vue";
-import Register from "../components/RegisterUser.vue";
+import Login from "../Views/LoginUser.vue";
+import Register from "../Views/RegisterUser.vue";
+import newtask from "../Views/NewTask.vue";
+import EditTask from "../Views/EditTask.vue";
 
 const routes = [
+
   {
     path: "/",
-    name: "Home",
-    component: Home,
-  },
-  {
-    path: "/login",
     name: "Login",
     component: Login,
   },
@@ -18,6 +15,16 @@ const routes = [
     path: "/register",
     name: "Register",
     component: Register,
+  },
+  {
+    path: "/newtask",
+    name: "NewTask",
+    component: newtask,
+  },
+  {
+    path: "/edittask",
+    name: "EditTask",
+    component: EditTask,
   },
 ];
 
