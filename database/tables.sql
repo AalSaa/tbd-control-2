@@ -4,19 +4,19 @@ CREATE DATABASE taskmanagementdb;
 \c taskmanagementdb;
 
 -- Creación de la tabla de usuarios
-CREATE TABLE usuario (
-    id_usuario SERIAL PRIMARY KEY,
-    nombre VARCHAR(255) NOT NULL UNIQUE,
-    contrasena VARCHAR(255) NOT NULL
+CREATE TABLE user (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL
 );
 
 -- Creación de la tabla de tareas
-CREATE TABLE tarea (
-    id_tarea SERIAL PRIMARY KEY,
-    id_usuario INT NOT NULL,
-    titulo VARCHAR(255) NOT NULL,
-    descripcion TEXT,
-    fecha_vencimiento DATE NOT NULL,
-    estado BOOLEAN DEFAULT FALSE,
-    FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario) ON DELETE CASCADE
+CREATE TABLE task (
+    id SERIAL PRIMARY KEY,
+    id_user INT NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    descrition TEXT,
+    due_date DATE NOT NULL,
+    status BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (id_user) REFERENCES usuario(id_user) ON DELETE CASCADE
 );
