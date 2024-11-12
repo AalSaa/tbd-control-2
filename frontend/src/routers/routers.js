@@ -3,6 +3,7 @@ import Login from "../Views/LoginUser.vue";
 import Register from "../Views/RegisterUser.vue";
 import newtask from "../Views/NewTask.vue";
 import EditTask from "../Views/EditTask.vue";
+import ViewTask from "../Views/ViewTask.vue";
 
 const routes = [
 
@@ -26,6 +27,11 @@ const routes = [
     name: "EditTask",
     component: EditTask,
   },
+  {
+    path: "/viewtask",
+    name: "ViewTask",
+    component: ViewTask,
+  }
 ];
 
 const router = createRouter({

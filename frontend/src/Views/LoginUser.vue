@@ -26,6 +26,9 @@ const login = async () => {
     console.log('Response:', response);
     if (response.status === 200) {
         alert('Sesión iniciada correctamente');
+        localStorage.setItem('userLoginEmail', JSON.stringify(userData.value.email)); //Se almacena el email del usuario en el localStorage
+                                                                                     //para acceder a el localStorage.getItem('userLoginEmail') 
+
     } else {
         alert('Error al iniciar sesión');
     }

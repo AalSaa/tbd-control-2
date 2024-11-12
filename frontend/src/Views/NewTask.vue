@@ -34,6 +34,7 @@ const submitForm = () => {
         description: description.value,
         dueDate: dueDate.value,
     };
+    localStorage.setItem('Titulo', JSON.stringify(newTask.title));
     console.log('Nueva Tarea:', newTask);
 };
 </script>
