@@ -13,8 +13,8 @@ public class TaskService {
     @Autowired
     private TaskRepository taskRepository;
 
-    public List<TaskEntity> getAllTasks() {
-        return taskRepository.findAll();
+    public List<TaskEntity> getTasksByIdUser(int id) {
+        return taskRepository.findTasksByUserID(id);
     }
 
     public TaskEntity getTaskById(int id) {
