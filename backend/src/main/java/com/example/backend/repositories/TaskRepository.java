@@ -34,9 +34,10 @@ public class TaskRepository {
         }
     }
 
-    public List<TaskEntity> findAll() {
+    public List<TaskEntity> findTasksByUserID(int id_user) {
         try (Connection con = sql2o.open()) {
-            return con.createQuery("SELECT * FROM tasks")
+            return con.createQuery("SELECT * FROM tasks WHERE id_user = :id_user")
+                    .addParameter("id_user", id_user)
                     .executeAndFetch(TaskEntity.class);
         }
     }
