@@ -1,12 +1,12 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { auth } from "../Utils/AuthGuard";
 import Login from "../Views/LoginUser.vue";
 import Register from "../Views/RegisterUser.vue";
-import newtask from "../Views/NewTask.vue";
+import NewTask from "../Views/NewTask.vue";
 import EditTask from "../Views/EditTask.vue";
 import ViewTask from "../Views/ViewTask.vue";
 
 const routes = [
-
   {
     path: "/",
     name: "Login",
@@ -20,24 +20,26 @@ const routes = [
   {
     path: "/newtask",
     name: "NewTask",
-    component: newtask,
+    component: NewTask,
+    beforeEnter: auth,
   },
   {
     path: "/edittask",
     name: "EditTask",
     component: EditTask,
+    beforeEnter: auth,
   },
   {
     path: "/viewtask",
     name: "ViewTask",
     component: ViewTask,
-  }
+    beforeEnter: auth,
+  },
 ];
 
 const router = createRouter({
   history: createWebHistory(),
-  routes, // Aquí pasas el array routes directamente
-  linkActiveClass: "active-link",
+  routes,
 });
 
 export default router;
