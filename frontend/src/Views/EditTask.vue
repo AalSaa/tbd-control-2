@@ -36,7 +36,7 @@ const task = ref({ ...existingTask });
 
 const submitForm = () => {
     console.log('Tarea Modificada:', task.value);
-    // Aquí puedes agregar la lógica para actualizar la tarea en tu backend o estado global
+    alert(localStorage.getItem('Titulo'));
 };
 </script>
 
