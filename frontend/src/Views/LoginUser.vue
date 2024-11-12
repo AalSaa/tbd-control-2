@@ -3,8 +3,8 @@
         <h1>Iniciar Sesión</h1>
         <form @submit.prevent="login">
             <div>
-                <label for="email">Email:</label>
-                <input type="email" v-model="userData.email" placeholder="Ingrese su email" required />
+                <label for="email">Nombre:</label>
+                <input type="text" v-model="userData.name" placeholder="Ingrese su email" required />
             </div>
             <div>
                 <label for="password">Password:</label>
@@ -19,7 +19,7 @@
 import { ref } from 'vue';
 import { loginUser } from '../services/UserService.js';
 
-const userData = ref({ email: '', password: '' });
+const userData = ref({ name: '', password: '' });
 
 const login = async () => {
     const response = await loginUser(userData.value);
@@ -27,7 +27,7 @@ const login = async () => {
     if (response.status === 200) {
         alert('Sesión iniciada correctamente');
         localStorage.setItem('userLoginEmail', JSON.stringify(userData.value.email)); //Se almacena el email del usuario en el localStorage
-                                                                                     //para acceder a el localStorage.getItem('userLoginEmail') 
+        //para acceder a el localStorage.getItem('userLoginEmail') 
 
     } else {
         alert('Error al iniciar sesión');

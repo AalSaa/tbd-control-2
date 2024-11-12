@@ -2,7 +2,7 @@ import httpClient from "../Utils/http-common";
 
 export const postClient = async (userData) => {
   try {
-    const response = await httpClient.post("auth/register", userData);
+    const response = await httpClient.post("api/v1/users", userData);
     return { data: response.data, status: response.status };
   } catch (error) {
     if (error.response) {
