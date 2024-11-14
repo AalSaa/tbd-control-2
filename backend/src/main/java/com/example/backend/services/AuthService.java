@@ -1,9 +1,12 @@
 package com.example.backend.services;
 
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.backend.dtos.LoginDTO;
 import com.example.backend.entities.UserEntity;
 import com.example.backend.jwt.JwtUtil;
 import com.example.backend.repositories.UserRepository;
+import jakarta.servlet.http.Cookie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +25,32 @@ public class AuthService {
         }
 
         return JwtUtil.createToken(loginDTO.getName());
+    }
 
+    public UserEntity register(UserEntity user) {
+        UserEntity existingUser = userRepository.findByName(user.getName());
+        if (existingUser != null) {
+            throw new IllegalStateException("User already exists");
+        }
+
+        return userRepository.save(user);
+    }
+
+    public void verifyToken(Cookie[] cookies) {
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("JWT")) {
+                    try {
+                        String token = cookie.getValue();
+                        DecodedJWT decodedJWT = JwtUtil.verifyToken(token);
+                        return;
+                    } catch (JWTVerificationException e) {
+                        throw new IllegalStateException("Invalid JWT");
+                    }
+                }
+            }
+            throw new IllegalStateException("JWT not found");
+        }
+        throw new IllegalStateException("Cookies not found");
     }
 }

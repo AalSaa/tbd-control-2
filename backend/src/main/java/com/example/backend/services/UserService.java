@@ -26,15 +26,6 @@ public class UserService {
        return user;
     }
 
-    public UserEntity saveUser(UserEntity user) {
-        UserEntity existingUser = userRepository.findByName(user.getName());
-        if (existingUser != null) {
-            throw new IllegalStateException("User already exists");
-        }
-
-        return userRepository.save(user);
-    }
-
     public UserEntity updateUser(UserEntity user) {
         UserEntity possibleUser = userRepository.findById(user.getId());
         if (possibleUser == null) {
