@@ -13,7 +13,7 @@
                 </div>
                 <div>
                     <label for="dueDate">Fecha de Vencimiento:</label>
-                    <input type="date" id="dueDate" v-model="task.dueDate" required>
+                    <input type="date" id="dueDate" v-model="task.due_date" required>
                 </div>
                 <button type="submit">Modificar Tarea</button>
             </form>
@@ -22,23 +22,47 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import { useRouter, useRoute  } from 'vue-router';
+import { getTaskById, updateTask } from '../services/TaskService.js';
 
-// Simulación de una tarea existente (esto debería venir de tu backend o estado global)
-const existingTask = {
-    title: 'Tarea de Ejemplo',
-    description: 'Descripción de la tarea de ejemplo.',
-    dueDate: '2024-12-31',
+const route = useRoute();
+const router = useRouter();
+
+const task = ref({
+    id: '',
+    title: '',
+    description: '',
+    due_date: '',
+    completed: '',
+});
+
+// Función para obtener la tarea por ID
+const fetchTask = async () => {
+    const taskId = route.params.id; // Obtener el ID de la tarea desde la URL
+    console.log('Cargando tarea con ID:', taskId);
+    const response = await getTaskById(taskId);
+    console.log('Respuesta:', response);
+    task.value = response.data; // Asignar la respuesta a la variable task
 };
 
-// Estado para la tarea que se va a editar
-const task = ref({ ...existingTask });
+// Llamar a fetchTask cuando el componente se monta
+onMounted(() => {
+    fetchTask();
+});
 
-const submitForm = () => {
-    console.log('Tarea Modificada:', task.value);
-    alert(localStorage.getItem('Titulo'));
+
+const submitForm = async () => {
+    const response = await updateTask(task.value);
+    console.log('Response:', response);
+    router.push({ name: 'ViewTask', params: { id: task.value.id } });
+
 };
 </script>
+
+
+
+
 
 <style scoped>
 .container {

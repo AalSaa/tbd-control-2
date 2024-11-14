@@ -21,19 +21,19 @@ const routes = [
     path: "/newtask",
     name: "NewTask",
     component: NewTask,
-    beforeEnter: auth,
+    //beforeEnter: auth,
   },
   {
-    path: "/edittask",
+    path: "/edittask/:id",
     name: "EditTask",
     component: EditTask,
-    beforeEnter: auth,
+    //beforeEnter: auth,
   },
   {
-    path: "/viewtask",
+    path: "/viewtask/:id",
     name: "ViewTask",
     component: ViewTask,
-    beforeEnter: auth,
+    //beforeEnter: auth,
   },
 ];
 

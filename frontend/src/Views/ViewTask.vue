@@ -1,14 +1,15 @@
 <template>
     <div class="container">
         <h1>Tarea: {{ task.title }}</h1>
-        <div class="task-details">
+        <div class="task-details" v-if="task">
             <p><strong>Descripción:</strong> {{ task.description }}</p>
-            <p><strong>Fecha Límite:</strong> {{ task.dueDate }}</p>
+            <p><strong>Fecha Límite:</strong> {{ task.due_date }}</p>
+            <p><strong>Estado:</strong> {{ task.status ? 'Completada' : 'Pendiente' }}</p>
         </div>
         <div class="button-group">
             <button @click="editTask">Editar</button>
-            <button @click="deleteTask">Eliminar</button>
-            <button @click="markAsCompleted" :class="{ completed: task.completed }">
+            <button @click="deleteTaskButton">Eliminar</button>
+            <button @click="markAsCompleted" :class="{ completed: task.status }">
                 {{ task.completed ? 'Completada' : 'Marcar como Completada' }}
             </button>
         </div>
@@ -16,35 +17,52 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { ref, onMounted } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
+import { getTaskById, updateTask, deleteTask } from '../services/TaskService.js';
 
 const router = useRouter();
+const route = useRoute();
 
-// Simulación de una tarea existente (esto debería venir de tu backend o estado global)
 const task = ref({
-    title: 'Tarea de Ejemplo',
-    description: 'Descripción de la tarea de ejemplo.',
-    dueDate: '2024-12-31',
-    completed: false,
+    id: '',
+    title: '',
+    description: '',
+    due_date: '',
+    status: '',
 });
 
-// Funciones para manejar las acciones de los botones
-const editTask = () => {
-    console.log('Editando tarea:', task.value);   
 
+const fetchTask = async () => {
+    const taskId = route.params.id; // Obtener el ID de la tarea desde la URL
+    console.log('Cargando tarea con ID:', taskId);
+    const response = await getTaskById(taskId);
+    console.log('Respuesta:', response);
+    task.value = response.data; 
+};
+
+
+onMounted(() => {
+    fetchTask();
+});
+
+
+const editTask = () => {
+    console.log('Editar tarea:', task.value);       
     router.push({ name: 'EditTask', params: { id: task.value.id } });
 };
 
-const deleteTask = () => {
+const deleteTaskButton = async () => {
     console.log('Eliminando tarea:', task.value);
-    // Aquí puedes agregar la lógica para eliminar la tarea
+    const response = await deleteTask(task.value.id);
+    router.push({name: 'NewTask'})
 };
 
-const markAsCompleted = () => {
-    task.value.completed = !task.value.completed;
-    console.log('Estado de tarea cambiado a:', task.value.completed);
-};
+const markAsCompleted = async () => {
+    task.value.status = true;
+    const response = await updateTask(task.value);   
+}
+
 </script>
 
 <style scoped>
