@@ -5,15 +5,15 @@
             <form @submit.prevent="submitForm">
                 <div>
                     <label for="title">Título:</label>
-                    <input type="text" id="title" v-model="title" required>
+                    <input type="text" id="title" v-model="newTask.title" required>
                 </div>
                 <div>
                     <label for="description">Descripción:</label>
-                    <textarea id="description" v-model="description" required></textarea>
+                    <textarea id="description" v-model="newTask.description" required></textarea>
                 </div>
                 <div>
                     <label for="dueDate">Fecha de Vencimiento:</label>
-                    <input type="date" id="dueDate" v-model="dueDate" required>
+                    <input type="date" id="dueDate" v-model="newTask.due_date" required>
                 </div>
                 <button type="submit">Crear Tarea</button>
             </form>
@@ -22,20 +22,31 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { reactive } from 'vue';
+import { postTask } from '../services/TaskService.js';
 
-const title = ref('');
-const description = ref('');
-const dueDate = ref('');
+const newTask = reactive({
+    id_user: 1,
+    title: '',
+    description: '',
+    due_date: '',
+});
 
-const submitForm = () => {
-    const newTask = {
-        title: title.value,
-        description: description.value,
-        dueDate: dueDate.value,
-    };
-    localStorage.setItem('Titulo', JSON.stringify(newTask.title));
-    console.log('Nueva Tarea:', newTask);
+const submitForm = async () => {
+    
+    const response = await postTask(newTask);
+    
+    if (response.status === 201) {
+        alert('Tarea creada correctamente');
+        console.log('Nueva Tarea:', newTask);
+        
+        // Limpiar el formulario después de crear la tarea
+        newTask.title = '';
+        newTask.description = '';
+        newTask.due_date = '';
+    } else {
+        alert('Error al crear la tarea');
+    }
 };
 </script>
 
