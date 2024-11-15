@@ -24,6 +24,13 @@ public class TaskController {
         return new ResponseEntity<>(taskService.getTasksByIdUser(id), HttpStatus.OK);
     }
 
+    @GetMapping("/user/{id}/status/{status}/keyword/{keyword}")
+    public ResponseEntity<List<TaskEntity>> getUserTasksByStatusAndKeyword(
+            @PathVariable int id, @PathVariable Boolean status, @PathVariable String keyword
+    ) {
+        return new ResponseEntity<>(taskService.getTasksByIDUserAndStatusAndKeyword(id, status, keyword), HttpStatus.OK);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<TaskEntity> getTaskById(@PathVariable int id) {
         return new ResponseEntity<>(taskService.getTaskById(id), HttpStatus.OK);

@@ -42,6 +42,21 @@ public class TaskRepository {
         }
     }
 
+    public List<TaskEntity> findTasksByUserIDAndStatusANDKeyword(int id_user, Boolean status, String keyword) {
+        String query = "SELECT * FROM tasks WHERE id_user = :id_user AND status = :status " +
+                "AND (title ILIKE :keyword OR description ILIKE :keyword)";
+
+        try (Connection con = sql2o.open()) {
+            String keywordWithWildcards = "%" + keyword + "%";
+
+            return con.createQuery(query)
+                    .addParameter("id_user", id_user)
+                    .addParameter("status", status)
+                    .addParameter("keyword", keywordWithWildcards)
+                    .executeAndFetch(TaskEntity.class);
+        }
+    }
+
     public TaskEntity findById(int id) {
         try (Connection con = sql2o.open()) {
             return con.createQuery("SELECT * FROM tasks WHERE id = :id")
