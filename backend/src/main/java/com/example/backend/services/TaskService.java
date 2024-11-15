@@ -17,6 +17,10 @@ public class TaskService {
         return taskRepository.findTasksByUserID(id);
     }
 
+    public List<TaskEntity> getTasksByIDUserAndStatusAndKeyword(int id, Boolean status, String keyword) {
+        return taskRepository.findTasksByUserIDAndStatusANDKeyword(id, status, keyword);
+    }
+
     public TaskEntity getTaskById(int id) {
         TaskEntity task = taskRepository.findById(id);
         if (task == null) {
