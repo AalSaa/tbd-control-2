@@ -3,6 +3,7 @@ package com.example.backend.services;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.backend.dtos.LoginDTO;
+import com.example.backend.dtos.LoginResponseDTO;
 import com.example.backend.entities.UserEntity;
 import com.example.backend.jwt.JwtUtil;
 import com.example.backend.repositories.UserRepository;
@@ -15,7 +16,7 @@ public class AuthService {
     @Autowired
     UserRepository userRepository;
 
-    public String login(LoginDTO loginDTO) {
+    public LoginResponseDTO login(LoginDTO loginDTO) {
         UserEntity clientEntity = userRepository.findByName(loginDTO.getName());
         if (clientEntity == null) {
             throw new IllegalStateException("The name or password is incorrect");
@@ -24,7 +25,10 @@ public class AuthService {
             throw new IllegalStateException("The email or password is incorrect");
         }
 
-        return JwtUtil.createToken(loginDTO.getName());
+        return LoginResponseDTO.builder()
+                .token(JwtUtil.createToken(loginDTO.getName()))
+                .userId(clientEntity.getId())
+                .build();
     }
 
     public UserEntity register(UserEntity user) {
