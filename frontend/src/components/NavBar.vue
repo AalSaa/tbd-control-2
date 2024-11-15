@@ -13,7 +13,7 @@
             <RouterLink v-if="!login" class="nav-link-login" to="/">
                 Login
             </RouterLink>
-            <RouterLink v-else class="nav-link-login" v-on:click="print()" to="/">
+            <RouterLink v-else class="nav-link-login" v-on:click="logout()" to="/">
                 Logout
             </RouterLink>
             <RouterLink class="nav-link-register" to="/register">
@@ -29,7 +29,7 @@ import { ref } from 'vue';
 
 const login = ref(false);
 
-const print = async () => {
+const logout = async () => {
     const response = await httpClient.post("/auth/logout", {
         withCredentials: true,
     });
