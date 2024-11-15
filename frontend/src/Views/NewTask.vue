@@ -33,13 +33,13 @@ const newTask = reactive({
 });
 
 const submitForm = async () => {
-    
+
     const response = await postTask(newTask);
-    
+
     if (response.status === 201) {
         alert('Tarea creada correctamente');
         console.log('Nueva Tarea:', newTask);
-        
+
         // Limpiar el formulario después de crear la tarea
         newTask.title = '';
         newTask.description = '';
@@ -55,39 +55,53 @@ const submitForm = async () => {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Altura completa de la ventana */
-    background-color: #f4f4f4; /* Color de fondo suave */
+    height: 100vh;
+    /* Altura completa de la ventana */
+    background-color: #f4f4f4;
+    /* Color de fondo suave */
 }
 
 .form {
-    background-color: white; /* Fondo blanco para el formulario */
-    border-radius: 8px; /* Bordes redondeados */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-    padding: 2rem; /* Espaciado interno */
-    width: 400px; /* Ancho fijo para el formulario */
+    background-color: white;
+    /* Fondo blanco para el formulario */
+    border-radius: 8px;
+    /* Bordes redondeados */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    /* Sombra sutil */
+    padding: 2rem;
+    /* Espaciado interno */
+    width: 400px;
+    /* Ancho fijo para el formulario */
 }
 
 label {
     font-weight: bold;
 }
 
-input, textarea {
+input,
+textarea {
     padding: 0.5rem;
     font-size: 1rem;
-    width: 100%; /* Ancho completo dentro del formulario */
+    width: 100%;
+    /* Ancho completo dentro del formulario */
 }
 
 button {
     padding: 0.5rem 1rem;
     font-size: 1rem;
     cursor: pointer;
-    background-color: #007bff; /* Color del botón */
-    color: white; /* Color del texto del botón */
-    border: none; /* Sin borde */
-    border-radius: 4px; /* Bordes redondeados del botón */
+    background-color: #007bff;
+    /* Color del botón */
+    color: white;
+    /* Color del texto del botón */
+    border: none;
+    /* Sin borde */
+    border-radius: 4px;
+    /* Bordes redondeados del botón */
 }
 
 button:hover {
-    background-color: #0056b3; /* Color más oscuro al pasar el mouse */
+    background-color: #0056b3;
+    /* Color más oscuro al pasar el mouse */
 }
 </style>

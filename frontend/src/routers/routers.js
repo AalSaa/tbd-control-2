@@ -5,6 +5,7 @@ import Register from "../Views/RegisterUser.vue";
 import NewTask from "../Views/NewTask.vue";
 import EditTask from "../Views/EditTask.vue";
 import ViewTask from "../Views/ViewTask.vue";
+import ViewAllTasks from "../Views/ViewAllTasks.vue";
 
 const routes = [
   {
@@ -33,6 +34,12 @@ const routes = [
     path: "/viewtask/:id",
     name: "ViewTask",
     component: ViewTask,
+    beforeEnter: auth,
+  },
+  {
+    path: "/viewalltasks",
+    name: "ViewAllTasks",
+    component: ViewAllTasks,
     beforeEnter: auth,
   },
 ];

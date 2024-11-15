@@ -2,7 +2,7 @@ import httpClient from "./http-common";
 
 export const auth = async (to, from, next) => {
   try {
-    const response = await httpClient.post("/api/auth/verify-token", {
+    const response = await httpClient.post("/auth/verify-token", {
       withCredentials: true,
     });
 
