@@ -31,10 +31,9 @@
 import { RouterLink } from 'vue-router';
 import { useStore } from 'vuex';
 import httpClient from '../Utils/http-common';
-import { ref, computed } from 'vue';
+import { computed } from 'vue';
 
 const store = useStore();
-const login = ref(false);
 const loginState = computed(() => store.getters.getLogin);
 
 const logout = async () => {

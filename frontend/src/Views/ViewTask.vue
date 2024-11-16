@@ -34,11 +34,11 @@ const task = ref({
 
 
 const fetchTask = async () => {
-    const taskId = route.params.id; // Obtener el ID de la tarea desde la URL
+    const taskId = route.params.id;
     console.log('Cargando tarea con ID:', taskId);
     const response = await getTaskById(taskId);
     console.log('Respuesta:', response);
-    task.value = response.data; 
+    task.value = response.data;
 };
 
 
@@ -48,19 +48,19 @@ onMounted(() => {
 
 
 const editTask = () => {
-    console.log('Editar tarea:', task.value);       
+    console.log('Editar tarea:', task.value);
     router.push({ name: 'EditTask', params: { id: task.value.id } });
 };
 
 const deleteTaskButton = async () => {
     console.log('Eliminando tarea:', task.value);
     const response = await deleteTask(task.value.id);
-    router.push({name: 'NewTask'})
+    router.push({ name: 'NewTask' })
 };
 
 const markAsCompleted = async () => {
     task.value.status = true;
-    const response = await updateTask(task.value);   
+    const response = await updateTask(task.value);
 }
 
 </script>
@@ -71,38 +71,53 @@ const markAsCompleted = async () => {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Altura completa de la ventana */
-    background-color: #f4f4f4; /* Color de fondo suave */
+    height: 100vh;
+    /* Altura completa de la ventana */
+    background-color: #f4f4f4;
+    /* Color de fondo suave */
 }
 
 .task-details {
-    background-color: white; /* Fondo blanco para los detalles */
-    border-radius: 8px; /* Bordes redondeados */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-    padding: 2rem; /* Espaciado interno */
-    width: 400px; /* Ancho fijo para los detalles */
+    background-color: white;
+    /* Fondo blanco para los detalles */
+    border-radius: 8px;
+    /* Bordes redondeados */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    /* Sombra sutil */
+    padding: 2rem;
+    /* Espaciado interno */
+    width: 400px;
+    /* Ancho fijo para los detalles */
 }
 
 .button-group {
-    margin-top: 1rem; /* Espacio entre los detalles y los botones */
+    margin-top: 1rem;
+    /* Espacio entre los detalles y los botones */
 }
 
 button {
     padding: 0.5rem 1rem;
     font-size: 1rem;
     cursor: pointer;
-    background-color: #007bff; /* Color del botón */
-    color: white; /* Color del texto del botón */
-    border: none; /* Sin borde */
-    border-radius: 4px; /* Bordes redondeados del botón */
-    margin-right: 0.5rem; /* Espacio entre botones */
+    background-color: #007bff;
+    /* Color del botón */
+    color: white;
+    /* Color del texto del botón */
+    border: none;
+    /* Sin borde */
+    border-radius: 4px;
+    /* Bordes redondeados del botón */
+    margin-right: 0.5rem;
+    /* Espacio entre botones */
 }
 
 button:hover {
-    background-color: #0056b3; /* Color más oscuro al pasar el mouse */
+    background-color: #0056b3;
+    /* Color más oscuro al pasar el mouse */
 }
 
 .completed {
-    background-color: #28a745; /* Color verde para el botón completado */
+    background-color: #28a745;
+    /* Color verde para el botón completado */
 }
 </style>

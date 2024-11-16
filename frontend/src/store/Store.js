@@ -40,7 +40,7 @@ export default createStore({
     },
   },
   getters: {
-    getUsuario: (state) => state.user,
+    getUser: (state) => state.user,
     getLogin: (state) => state.login,
   },
   plugins: [vuexPersist.plugin],

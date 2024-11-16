@@ -21,7 +21,11 @@
 
 <script setup>
 import { getAllTasks, getTasksbyFilters } from '../services/TaskService.js';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
+import { useStore } from 'vuex';
+
+const store = useStore();
+const user = computed(() => store.getters.getUser);
 
 const dueTasks = ref([]);
 const tasks = ref([]);
@@ -50,7 +54,7 @@ const verifyDueDateToAllTasks = () => {
 };
 
 const TasksbyFilters = async () => {
-    const response = await getTasksbyFilters(1, keyword.value, status.value);
+    const response = await getTasksbyFilters(user.value.user_id, keyword.value, status.value);
 
     if (response.status === 200) {
         tasks.value = response.data;
@@ -60,7 +64,7 @@ const TasksbyFilters = async () => {
 };
 
 const getTasks = async () => {
-    const response = await getAllTasks(1);
+    const response = await getAllTasks(user.value.user_id);
 
     if (response.status === 200) {
         tasks.value = response.data;
