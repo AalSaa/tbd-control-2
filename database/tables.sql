@@ -16,7 +16,7 @@ CREATE TABLE tasks (
     id_user INT NOT NULL,
     title VARCHAR(255) NOT NULL,
     description TEXT,
-    due_date DATE NOT NULL,
+    due_date timestamp without time zone NOT NULL,
     status BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (id_user) REFERENCES users(id) ON DELETE CASCADE
 );

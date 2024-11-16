@@ -13,9 +13,11 @@
             <div v-for="task in tasks" :key="task.id" class="task-card">
                 <h2>{{ task.title }}</h2>
                 <p>{{ task.description }}</p>
-                <p>Fecha de vencimiento: {{ task.due_date }}</p>
+                <p>Fecha de vencimiento: {{ task.due_date.split('T')[0] }}</p>
+                <button class="btn primary-btn" v-on:click="goViewTasks(task.id)">Acciones para tarea </button>
             </div>
         </div>
+    
     </div>
 </template>
 
@@ -31,6 +33,7 @@ const dueTasks = ref([]);
 const tasks = ref([]);
 const keyword = ref('');
 const status = ref(0);
+const router = useRouter();
 
 const getTomorrowDate = () => {
     const today = new Date();
@@ -67,10 +70,16 @@ const getTasks = async () => {
     const response = await getAllTasks(user.value.user_id);
 
     if (response.status === 200) {
+        
         tasks.value = response.data;
     } else {
         alert("Error al obtener las tareas");
     }
+};
+
+const goViewTasks = (task_id) => {
+    console.log('Ver tarea' + task_id);
+    router.push({ name: 'ViewTask', params: { id: task_id } });
 };
 
 onMounted(() => {

@@ -4,7 +4,7 @@
         <form @submit.prevent="login">
             <div>
                 <label for="email">Nombre:</label>
-                <input type="text" v-model="userData.name" placeholder="Ingrese su email" required />
+                <input type="text" v-model="userData.name" placeholder="Ingrese su nombre" required />
             </div>
             <div>
                 <label for="password">Password:</label>
@@ -32,7 +32,8 @@ const login = async () => {
         alert('Sesión iniciada correctamente');
         store.commit('setUser', response.data);
         store.commit('login')
-        router.push({ name: 'NewTask' });
+        router.push({ name: 'ViewAllTasks' });
+
     } else {
         alert('Error al iniciar sesión');
     }

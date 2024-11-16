@@ -3,7 +3,7 @@
         <div class="nav-links">
             <div v-if="loginState" class="nav-links-task">
                 <RouterLink class="nav-link-newtask nav-link-button" to="/newtask">
-                    Tasks
+                    New Tasks
                 </RouterLink>
                 <RouterLink class="nav-link-alltasks nav-link-button" to="/viewalltasks">
                     All Tasks

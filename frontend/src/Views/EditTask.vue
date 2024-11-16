@@ -42,6 +42,7 @@ const fetchTask = async () => {
     const taskId = route.params.id; // Obtener el ID de la tarea desde la URL
     console.log('Cargando tarea con ID:', taskId);
     const response = await getTaskById(taskId);
+    response.data.due_date = response.data.due_date.split('T')[0]; // Formatear la fecha
     console.log('Respuesta:', response);
     task.value = response.data; // Asignar la respuesta a la variable task
 };
@@ -53,6 +54,7 @@ onMounted(() => {
 
 
 const submitForm = async () => {
+    task.value.due_date = task.value.due_date.split('T')[0];
     const response = await updateTask(task.value);
     console.log('Response:', response);
     router.push({ name: 'ViewTask', params: { id: task.value.id } });

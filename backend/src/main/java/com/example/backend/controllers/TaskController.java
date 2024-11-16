@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,7 +43,7 @@ public class TaskController {
     }
 
     @PutMapping
-    public ResponseEntity<TaskEntity> updateTask(@RequestBody TaskEntity task) {
+    public ResponseEntity<TaskEntity> updateTask(@RequestBody TaskEntity task){
         return new ResponseEntity<>(taskService.updateTask(task), HttpStatus.OK);
     }
 
