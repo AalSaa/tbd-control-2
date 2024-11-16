@@ -24,6 +24,10 @@
 <script setup>
 import { reactive } from 'vue';
 import { postTask } from '../services/TaskService.js';
+import { useRouter } from 'vue-router';
+
+
+const router = useRouter();
 
 const newTask = reactive({
     id_user: 1,
@@ -40,10 +44,7 @@ const submitForm = async () => {
         alert('Tarea creada correctamente');
         console.log('Nueva Tarea:', newTask);
 
-        // Limpiar el formulario después de crear la tarea
-        newTask.title = '';
-        newTask.description = '';
-        newTask.due_date = '';
+        router.push({ name: 'ViewAllTasks' });
     } else {
         alert('Error al crear la tarea');
     }

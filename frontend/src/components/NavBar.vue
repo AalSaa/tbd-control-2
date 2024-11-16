@@ -3,7 +3,7 @@
         <div class="nav-links">
             <div class="nav-links-task">
                 <RouterLink class="nav-link-newtask" to="/newtask">
-                    Tasks
+                    New Tasks
                 </RouterLink>
                 <RouterLink class="nav-link-alltasks" to="/viewalltasks">
                     All Tasks

@@ -4,7 +4,7 @@
         <form @submit.prevent="login">
             <div>
                 <label for="email">Nombre:</label>
-                <input type="text" v-model="userData.name" placeholder="Ingrese su email" required />
+                <input type="text" v-model="userData.name" placeholder="Ingrese su nombre" required />
             </div>
             <div>
                 <label for="password">Password:</label>
@@ -18,7 +18,9 @@
 <script setup>
 import { ref } from 'vue';
 import { loginUser } from '../services/UserService.js';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const userData = ref({ name: '', password: '' });
 
 const login = async () => {
@@ -26,8 +28,7 @@ const login = async () => {
     console.log('Response:', response);
     if (response.status === 200) {
         alert('Sesión iniciada correctamente');
-        localStorage.setItem('userLoginEmail', JSON.stringify(userData.value.email)); //Se almacena el email del usuario en el localStorage
-        //para acceder a el localStorage.getItem('userLoginEmail') 
+        router.push({ name: 'ViewAllTasks' });
 
     } else {
         alert('Error al iniciar sesión');

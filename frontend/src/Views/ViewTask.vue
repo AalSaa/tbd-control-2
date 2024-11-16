@@ -37,6 +37,7 @@ const fetchTask = async () => {
     const taskId = route.params.id; // Obtener el ID de la tarea desde la URL
     console.log('Cargando tarea con ID:', taskId);
     const response = await getTaskById(taskId);
+    response.data.due_date = response.data.due_date.split('T')[0];
     console.log('Respuesta:', response);
     task.value = response.data; 
 };
