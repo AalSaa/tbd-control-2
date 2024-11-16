@@ -18,7 +18,11 @@
 <script setup>
 import { ref } from 'vue';
 import { loginUser } from '../services/UserService.js';
+import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
 
+const store = useStore();
+const router = useRouter();
 const userData = ref({ name: '', password: '' });
 
 const login = async () => {
@@ -26,9 +30,9 @@ const login = async () => {
     console.log('Response:', response);
     if (response.status === 200) {
         alert('Sesión iniciada correctamente');
-        localStorage.setItem('userLoginEmail', JSON.stringify(userData.value.email)); //Se almacena el email del usuario en el localStorage
-        //para acceder a el localStorage.getItem('userLoginEmail') 
-
+        store.commit('setUser', response.data);
+        store.commit('login')
+        router.push({ name: 'NewTask' });
     } else {
         alert('Error al iniciar sesión');
     }
