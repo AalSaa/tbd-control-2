@@ -1,84 +1,123 @@
 <template>
     <div class="container">
         <div class="search-bar">
-            <!-- kEYWORD -->
             <input class="search" type="text" placeholder="Buscar tareas" v-model="keyword">
-            <!-- STATUS -->
-            <select v-model="status">
+            <select v-model="status" class="status-select">
                 <option value="0">No completadas</option>
                 <option value="1">Completadas</option>
             </select>
-            <button v-on:click="TasksbyFilters()">Buscar</button>
+            <button class="btn primary-btn" v-on:click="TasksbyFilters()">Buscar</button>
+            <button class="btn secondary-btn" v-on:click="verifyDueDateToAllTasks()">Verificar vencimientos</button>
         </div>
         <div class="tasks">
-            <div v-for="task in tasks" :key="task.id">
-                <div class="task">
-                    <h2>{{ task.title }}</h2>
-                    <p>{{ task.description }}</p>
-                    <p>Fecha de vencimiento: {{ task.due_date }}</p>
-                </div>
+            <div v-for="task in tasks" :key="task.id" class="task-card">
+                <h2>{{ task.title }}</h2>
+                <p>{{ task.description }}</p>
+                <p>Fecha de vencimiento: {{ task.due_date }}</p>
             </div>
         </div>
     </div>
 </template>
+
 <script setup>
 import { getAllTasks, getTasksbyFilters } from '../services/TaskService.js';
 import { onMounted, ref } from 'vue';
 
+const dueTasks = ref([]);
+const tasks = ref([]);
 const keyword = ref('');
 const status = ref(0);
-const tasks = ref([]);
+
+const getTomorrowDate = () => {
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+    return tomorrow.toISOString().split('T')[0];
+};
+
+const verifyDueDateToAllTasks = () => {
+    const tomorrow = getTomorrowDate();
+    dueTasks.value = [];
+    let tasksDueTomorrow = tasks.value.filter(task => task.due_date === tomorrow);
+
+    if (tasksDueTomorrow.length > 0) {
+        dueTasks.value = tasksDueTomorrow;
+        const taskTitles = dueTasks.value.map(task => task.title).join(', ');
+        alert(`Las siguientes tareas vencen mañana: ${taskTitles}`);
+    } else {
+        alert("No hay tareas que venzan mañana.");
+    }
+};
 
 const TasksbyFilters = async () => {
     const response = await getTasksbyFilters(1, keyword.value, status.value);
 
     if (response.status === 200) {
-        console.log("Tareas obtenidas:", response.data);
         tasks.value = response.data;
     } else {
         alert("Error al obtener las tareas");
     }
-}
+};
 
 const getTasks = async () => {
     const response = await getAllTasks(1);
 
     if (response.status === 200) {
-        console.log("Tareas obtenidas:", response.data);
         tasks.value = response.data;
     } else {
         alert("Error al obtener las tareas");
     }
+};
+
+onMounted(() => {
+    getTasks();
+});
+</script>
+
+<style scoped>
+.container {
+    padding: 20px;
 }
 
-onMounted(getTasks);
-
-</script>
-<style>
 .search-bar {
     display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
 }
 
-.search {
-    margin: 10px;
-    padding: 0.5rem;
-    font-size: 1rem;
-    width: 20%;
+.search,
+.status-select,
+.btn {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.btn {
+    cursor: pointer;
+}
+
+.primary-btn {
+    background-color: #007bff;
+    color: white;
+}
+
+.secondary-btn {
+    background-color: #6c757d;
+    color: white;
 }
 
 .tasks {
     display: flex;
     flex-wrap: wrap;
-    height: 100vh;
-    background-color: #f4f4f4;
+    gap: 20px;
 }
 
-.task {
-    margin: 10px;
+.task-card {
     background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    padding: 1rem;
-    width: 400px;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: calc(33.333% - 20px);
 }
 </style>
