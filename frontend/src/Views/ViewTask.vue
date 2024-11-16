@@ -56,7 +56,7 @@ const editTask = () => {
 const deleteTaskButton = async () => {
     console.log('Eliminando tarea:', task.value);
     const response = await deleteTask(task.value.id);
-    router.push({ name: 'NewTask' })
+    router.push({ name: 'Viewtask' })
 };
 
 const markAsCompleted = async () => {

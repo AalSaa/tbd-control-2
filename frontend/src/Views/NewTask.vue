@@ -22,7 +22,7 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue';
+import { reactive, computed } from 'vue';
 import { postTask } from '../services/TaskService.js';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';

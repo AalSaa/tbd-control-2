@@ -24,6 +24,7 @@
 <script setup>
 import { getAllTasks, getTasksbyFilters } from '../services/TaskService.js';
 import { onMounted, ref, computed } from 'vue';
+import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 
 const store = useStore();
@@ -45,7 +46,7 @@ const getTomorrowDate = () => {
 const verifyDueDateToAllTasks = () => {
     const tomorrow = getTomorrowDate();
     dueTasks.value = [];
-    let tasksDueTomorrow = tasks.value.filter(task => task.due_date === tomorrow);
+    let tasksDueTomorrow = tasks.value.filter(task => task.due_date.split('T')[0] === tomorrow);
 
     if (tasksDueTomorrow.length > 0) {
         dueTasks.value = tasksDueTomorrow;
