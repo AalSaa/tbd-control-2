@@ -25,12 +25,14 @@
 import { reactive } from 'vue';
 import { postTask } from '../services/TaskService.js';
 import { useRouter } from 'vue-router';
-
+import { useStore } from 'vuex';
 
 const router = useRouter();
+const store = useStore();
+const user = computed(() => store.getters.getUser);
 
 const newTask = reactive({
-    id_user: 1,
+    id_user: user.value.user_id,
     title: '',
     description: '',
     due_date: '',

@@ -18,8 +18,10 @@
 <script setup>
 import { ref } from 'vue';
 import { loginUser } from '../services/UserService.js';
+import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 
+const store = useStore();
 const router = useRouter();
 const userData = ref({ name: '', password: '' });
 
@@ -28,6 +30,8 @@ const login = async () => {
     console.log('Response:', response);
     if (response.status === 200) {
         alert('Sesión iniciada correctamente');
+        store.commit('setUser', response.data);
+        store.commit('login')
         router.push({ name: 'ViewAllTasks' });
 
     } else {
