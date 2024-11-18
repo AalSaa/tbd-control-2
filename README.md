@@ -32,8 +32,6 @@ El repositorio incluye las siguientes carpetas principales:
 Asegúrese de tener instalados Postgres 16, JDK 17, Node.js e IntelliJ IDEA. Se recomienda utilizar las versiones mencionadas en las tecnologías requeridas.
 
 # Instrucciones de instalación
-# Instrucciones de instalación
-
 1. Clonar el repositorio. Puede hacerlo usando el siguiente comando:
    ```sh
    git clone https://github.com/AalSaa/tbd-control-2
