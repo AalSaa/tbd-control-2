@@ -3,15 +3,15 @@
         <div class="nav-links">
             <div v-if="loginState" class="nav-links-task">
                 <RouterLink class="nav-link-newtask nav-link-button" to="/newtask">
-                    New Tasks
+                    Nueva Tarea
                 </RouterLink>
                 <RouterLink class="nav-link-alltasks nav-link-button" to="/viewalltasks">
-                    All Tasks
+                    Todas las tareas
                 </RouterLink>
             </div>
 
             <RouterLink v-if="loginState" class="nav-link-logout nav-link-button" v-on:click="logout()" to="/">
-                Logout
+                Cerrar Sesión
             </RouterLink>
 
             <div class="nav-link-login-register" v-else>
