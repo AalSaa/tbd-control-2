@@ -7,7 +7,7 @@
                 <input type="text" v-model="userData.name" placeholder="Ingrese su nombre" required />
             </div>
             <div>
-                <label for="password">Password:</label>
+                <label for="password">Contraseña:</label>
                 <input type="password" v-model="userData.password" placeholder="Ingrese su contraseña" required />
             </div>
             <button type="submit">Iniciar Sesión</button>
