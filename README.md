@@ -49,7 +49,7 @@ Asegúrese de tener instalados Postgres 16, JDK 17, Node.js e IntelliJ IDEA. Se 
       ```
     - Abrir una terminal en esa ruta y ejecutar el siguiente comando:
       ```sh
-      psql -U <Usuario>  -h <Host> -p <Puerto> -f "<ruta hacia el repositorio>/tbd-control-2/database/tables.sql"
+      psql -U <Usuario> -h <Host> -p <Puerto> -f "<ruta hacia el repositorio>/tbd-control-2/database/tables.sql"
       ```
       Donde:
         - Usuario: Nombre del usuario administrador de PostgreSQL.
@@ -59,12 +59,14 @@ Asegúrese de tener instalados Postgres 16, JDK 17, Node.js e IntelliJ IDEA. Se 
   * Para linux:
     - Abrir una terminal en la ruta donde se encuentra el script tables.sql y ejecutar el siguiente comando:
       ```sh
-      psql -U <Usuario>  -h <Host> -p <Puerto> -f "tables.sql"
+      psql postgresql://<Usuario>:<Contraseña>@<Host>:<Puerto>/<Base de datos> -f "tables.sql"
       ```
       Donde:
         - Usuario: Nombre del usuario administrador de PostgreSQL.
+        - Contraseña: Contraseña del usuario administrador de PostgreSQL.
         - Host: Dirección IP del servidor.
         - Puerto: Puerto configurado para el servidor.
+        - Base de datos: Nombre de la base de datos principal, generalmente se llama postgres.
           
 4. Abrir IntelliJ IDEA y seleccionar la opción "Abrir proyecto". Buscar la dirección del repositorio y seleccionar la carpeta backend.
 5. Buscar el archivo BackendApplication.java e iniciarlo.
